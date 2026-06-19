@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QR Nexus Alarm Emulator — Flasher</title>
+<script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+<style>
+  :root{--bg:#0e1428;--surface:#161e38;--border:#293459;--text:#eef1f8;--muted:#9aa6c6;--dim:#6d7a9e;--accent:#6366f1;--soft:#a5b4fc;--amber:#f59e0b;--green:#22c55e}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);max-width:580px;margin:auto;padding:32px 22px;-webkit-font-smoothing:antialiased}
+  .hdr{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .hdr img{height:38px;width:38px;border-radius:9px}
+  .wm{font-size:1.4rem;font-weight:700;letter-spacing:-.02em}.wm b{color:var(--soft)}
+  .sub{color:var(--dim);font-size:.82rem}
+  .banner{display:flex;gap:10px;align-items:flex-start;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.35);border-radius:10px;padding:12px 14px;margin-top:18px;font-size:.86rem;color:#fcd9a3}
+  .banner b{color:var(--amber)}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-top:16px}
+  p{color:var(--muted);line-height:1.65;font-size:.94rem}
+  .cta{margin:22px 0 4px;text-align:center}
+  button{background:var(--accent);color:#fff;border:0;border-radius:10px;padding:15px 30px;font:600 1.05rem Inter,sans-serif;cursor:pointer}
+  button:hover{background:#4f52d6}
+  .steps{list-style:none;counter-reset:s;margin-top:20px}
+  .steps li{counter-increment:s;position:relative;padding:10px 0 10px 40px;color:var(--muted);font-size:.93rem;line-height:1.55;border-top:1px solid var(--border)}
+  .steps li:first-child{border-top:0}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+  .steps b{color:var(--text)}
+  code{background:#0a0f22;border:1px solid var(--border);border-radius:5px;padding:1px 6px;font-family:'JetBrains Mono',monospace;font-size:.85em;color:var(--soft)}
+  details{margin-top:18px;font-size:.88rem;color:var(--muted)}
+  summary{cursor:pointer;color:var(--soft);font-weight:600}
+  details p{margin-top:10px}
+  a{color:var(--soft)}
+  .foot{color:var(--dim);font-size:.78rem;margin-top:18px;line-height:1.5;text-align:center}
+</style>
+</head>
+<body>
+  <div class="hdr">
+    <img src="https://app.qrnexus.io/mark.png" alt="" onerror="this.style.display='none'">
+    <div><div class="wm"><b>QR</b> Nexus</div><div class="sub">Alarm Device — 1‑click Installer</div></div>
+  </div>
+
+  <div class="banner">
+    <span>⚠️</span>
+    <span>Use <b>Google Chrome</b> or <b>Microsoft Edge</b> on a <b>computer</b> (laptop/desktop).
+    It does <b>not</b> work in Safari, Firefox, or on a phone.</span>
+  </div>
+
+  <div class="card">
+    <p>This installs the QR Nexus alarm firmware onto an <b>ESP32</b> board, straight from your
+    browser — nothing to download. Afterwards the board creates its own WiFi where you type in
+    your network and device code. No technical knowledge needed.</p>
+
+    <div class="cta">
+      <esp-web-install-button manifest="./manifest.json">
+        <button slot="activate">⚡ Install firmware</button>
+        <span slot="unsupported" style="color:#fcd9a3">This browser can't do it — open this page in <b>Chrome</b> or <b>Edge</b>.</span>
+        <span slot="not-allowed" style="color:#fcd9a3">Please allow the USB/serial port when asked.</span>
+      </esp-web-install-button>
+    </div>
+
+    <ol class="steps">
+      <li>Plug the ESP32 board into your computer with a <b>USB cable</b> (a real data cable, not a charge‑only one).</li>
+      <li>Click <b>⚡ Install firmware</b>. A small window lists ports — pick the one that appears (often “USB Serial” or “CP210x / CH340”). Then choose <b>Install</b>.</li>
+      <li>Wait about a minute for it to finish, then unplug/replug or press the board's reset button.</li>
+      <li>On your phone or laptop WiFi list, join the network <b>QRNexus‑Setup‑XXXX</b> and open <code>http://192.168.4.1</code>.</li>
+      <li>Type your <b>WiFi name + password</b> and your <b>device code</b> (<code>qrn_dev_…</code>, from <a href="https://app.qrnexus.io">app.qrnexus.io</a> → Alarm Panels → key icon), then Save. Done — the board connects and starts reporting.</li>
+    </ol>
+
+    <details>
+      <summary>The board doesn't show up in the port list?</summary>
+      <p>Your computer may need a tiny USB driver for the board's chip:
+      <br>• <b>CP210x</b> driver: <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers" target="_blank">silabs.com</a>
+      <br>• <b>CH340/CH341</b> driver: <a href="https://www.wch-ic.com/downloads/CH341SER_ZIP.html" target="_blank">wch-ic.com</a>
+      <br>Then try a different USB cable or port, and reload this page. (macOS/Windows usually already have these.)</p>
+    </details>
+  </div>
+
+  <div class="foot">Need it even simpler? Ask whoever set this up to flash &amp; configure one board for you,
+  then just plug it in.</div>
+</body>
+</html>
