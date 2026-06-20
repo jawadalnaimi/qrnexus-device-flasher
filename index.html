@@ -73,6 +73,18 @@
       <br>• <b>CH340/CH341</b> driver: <a href="https://www.wch-ic.com/downloads/CH341SER_ZIP.html" target="_blank">wch-ic.com</a>
       <br>Then try a different USB cable or port, and reload this page. (macOS/Windows usually already have these.)</p>
     </details>
+
+    <div style="margin-top:22px;border-top:1px solid var(--border);padding-top:18px">
+      <p style="margin-bottom:12px"><b style="color:var(--text)">Installer says "Failed to initialize", or the browser crashes?</b><br>
+      Some ESP32 boards can't be reset over the browser. Use the downloadable flasher instead —
+      same firmware, more reliable (no browser, no BOOT button):</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="./qrnexus-flasher-macOS.zip" style="flex:1;min-width:170px;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:13px;color:var(--text);text-decoration:none;font-weight:600">⬇︎ Download for macOS</a>
+        <a href="./qrnexus-flasher-Windows.zip" style="flex:1;min-width:170px;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:13px;color:var(--text);text-decoration:none;font-weight:600">⬇︎ Download for Windows</a>
+      </div>
+      <p style="color:var(--dim);font-size:.8rem;margin-top:10px">Unzip, then double-click <code>Flash-macOS.command</code> / <code>Flash-Windows.bat</code>.
+      First run only: macOS → right-click the file → Open; Windows → "More info" → "Run anyway".</p>
+    </div>
   </div>
 
   <div class="foot">Need it even simpler? Ask whoever set this up to flash &amp; configure one board for you,
